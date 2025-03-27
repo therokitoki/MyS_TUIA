@@ -115,6 +115,12 @@ for (i in 1:1000){
   x <- append(x,prop) 
   
 }
-
-
+df <- data.frame(prop = x, len = 1:1000)
+library(ggplot2)
+ggplot(data = df, aes(x=len, y=prop))+geom_line()+
+  ggtitle("Plot de proporciones de 1s según número de muestras")+
+  theme(plot.title = element_text(hjust=0.5))+
+  labs(x="N° de muestras",y="Proporción")+
+  geom_hline(yintercept=0.5,linetype="dashed",color="red",size=1)
 plot(1:1000,x, type='l')
+
