@@ -98,15 +98,31 @@ for (i in 1:1000){
 plot(1:1000,x, type='l')
 
 
-## Ejercicio 9 
-muestra = sample(0:5,10,replace=TRUE)
+## Ejercicio 9 - Muestreando de una población finita
+
+# 1. Simular el lanzamiento de una moneda equilibrada n = 10 veces. 
+# Contar el número y la proporción de caras obtenidas en la simulación.
+
+# Resolución
+
+# Simulamos la tirada de la moneda 10 veces- 
+muestra = sample(0:1,10,replace=TRUE) # Replace = True permite que haya repetición
+
+# Calculamos la probabilidad de que salga cada lado de la moneda
 uno = sum(muestra==1)/length(muestra)
 cero= sum(muestra==0)/length(muestra)
-
 prop = c(uno,cero)
 prop
 
-x = c()
+# 2. Repetir la simulación para n=1000 y para cada valor desde 1, 2,..., n 
+# calcular y graficar la proporción de caras obtenidas.
+
+x = c() # Inicializamos un vector vacío
+
+# Iteramos del 1 al 1000 para realizar nuestras 1000 simulaciones de lanzada de moneda.
+# En cada iteración, se lanzará la moneda una vez más.
+# Además, calculamos la proporción de que la moneda sea 1. Esta proporción
+# Se guarda en el vector x
 
 for (i in 1:1000){
   
@@ -115,6 +131,9 @@ for (i in 1:1000){
   x <- append(x,prop) 
   
 }
+
+# Visualizamos la data obtenida
+
 df <- data.frame(prop = x, len = 1:1000)
 library(ggplot2)
 ggplot(data = df, aes(x=len, y=prop))+geom_line()+
