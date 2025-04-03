@@ -1,3 +1,4 @@
+library(ggplot2)
 ### Ejercicio 2
 
 numeric(100) # Inicializa un vector de 100 elementos en 0
@@ -105,14 +106,19 @@ plot(1:1000,x, type='l')
 
 # Resolución
 
+# Para la resolución de este ejercicio, definimos que "caras" equivale a 1
+
 # Simulamos la tirada de la moneda 10 veces- 
 muestra = sample(0:1,10,replace=TRUE) # Replace = True permite que haya repetición
 
-# Calculamos la probabilidad de que salga cada lado de la moneda
-uno = sum(muestra==1)/length(muestra)
-cero= sum(muestra==0)/length(muestra)
-prop = c(uno,cero)
-prop
+# Calculamos la proporción de caras obtenidas.
+
+uno_prop = mean(muestra==1)
+cero_prop = mean(muestra==0)
+#uno = sum(muestra==1)/length(muestra)
+#cero= sum(muestra==0)/length(muestra)
+
+prop = c(uno_prop,cero_prop); prop
 
 # 2. Repetir la simulación para n=1000 y para cada valor desde 1, 2,..., n 
 # calcular y graficar la proporción de caras obtenidas.
@@ -126,20 +132,23 @@ x = c() # Inicializamos un vector vacío
 
 for (i in 1:1000){
   
-  muestra = sample(0:5,i,replace=TRUE)
-  prop = sum(muestra==1)/length(muestra)
-  x <- append(x,prop) 
+  muestra = sample(0:1,i,replace=TRUE)
+  p = sum(muestra==1)/length(muestra)
+  x <- append(x,p) 
   
 }
 
 # Visualizamos la data obtenida
 
 df <- data.frame(prop = x, len = 1:1000)
-library(ggplot2)
+
 ggplot(data = df, aes(x=len, y=prop))+geom_line()+
+  
   ggtitle("Plot de proporciones de 1s según número de muestras")+
+  ylim(0.0,1.0)+
   theme(plot.title = element_text(hjust=0.5))+
-  labs(x="N° de muestras",y="Proporción")+
+  labs(x="N° de tiradas por muestra",y="Proporción")+
   geom_hline(yintercept=0.5,linetype="dashed",color="red",size=1)
-plot(1:1000,x, type='l')
+
+#plot(1:1000,x, type='l')
 
